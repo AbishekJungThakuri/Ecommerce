@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+@keyframes swing {
+    0% {
+      transform: rotateY(0deg);
+    }
+    25% {
+      transform: rotateY(90deg);
+    }
+    50% {
+      transform: rotateY(180deg);
+    }
+    75% {
+      transform: rotateY(270deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+  .swing-animation {
+    animation: swing 3s ease-in-out infinite;
+  }
