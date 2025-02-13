@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+*{
+    font-family: "Assistant", sans-serif;
+    font: rgb(18, 18, 18);
+}
+
 @keyframes swing {
     0% {
       transform: rotateY(0deg);
