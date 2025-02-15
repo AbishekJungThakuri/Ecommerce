@@ -39,12 +39,12 @@ export const Footer = () => {
       <div className="pt-8 sm:pt-10">
         <div className="flex justify-center items-center gap-3 sm:gap-5">
           <img
-            className="w-8 sm:w-10 md:w-12 h-auto bg-white rounded-sm"
+            className="w-8 sm:w-10 md:w-12 h-auto bg-white rounded-sm cursor-pointer"
             src="https://logos-world.net/wp-content/uploads/2020/09/MasterCard-Logo-1979-1990.png"
             alt="MasterCard"
           />
           <img
-            className="w-8 sm:w-10 md:w-12 h-auto bg-white rounded-sm"
+            className="w-8 sm:w-10 md:w-12 h-auto bg-white rounded-sm cursor-pointer"
             src="https://th.bing.com/th/id/R.c55444b1b127c6917062c825e2134eed?rik=80qgGZDvWFzBQQ&pid=ImgRaw&r=0"
             alt="Visa"
           />
