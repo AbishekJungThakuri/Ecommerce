@@ -44,13 +44,21 @@ export const Navbar = () => {
     };
   }, [prevScrollPos]);
 
-
+  
   // Handling outsideClick
+  const searchCard = useRef(null)
   const bar = useRef(null);
+
   const handleClickOutside = (e) => {
-    if(bar.current && !bar.current.contains(e.target))
-     {
-      setBarShow(false)
+    // Close MenuBar if clicking outside of it
+    if (bar.current && !bar.current.contains(e.target)) {
+      setBarShow(false);
+    }
+  
+    // Close search if clicking outside of search input and SearchCard
+    if (searchCard.current && !searchCard.current.contains(e.target)) {
+      setSearchShow(false);
+      dispatch(clearSearch());
     }
   };
 
@@ -123,8 +131,9 @@ export const Navbar = () => {
     </div>
     <div>
     {    
-            searchShow && filteredResults.length > 0 && (
-              <SearchCard filteredResults={filteredResults} />
+        searchShow && filteredResults.length > 0 && (
+              <SearchCard searchCard={searchCard} filteredResults={filteredResults} />
+              // <SearchCard filteredResults={filteredResults} />
             )
         }
     </div>

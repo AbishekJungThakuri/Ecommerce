@@ -5,14 +5,12 @@ import { Category } from '../components/Category'
 import { useSelector } from 'react-redux'
 
 export const Shop = () => {
-
   
   const selectedCategory = useSelector(state => state.category.category)
   const filteredItems = dropIV.filter(item => {
     if (selectedCategory === 'All') return true;
     return item.catergory === selectedCategory;
 });
-
 
   return (
     <div className='bg-black px-[10rem] py-10 '>

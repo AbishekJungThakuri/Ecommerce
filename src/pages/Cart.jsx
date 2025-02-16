@@ -41,7 +41,7 @@ export const Cart = () => {
           {/* Order Now Button */}
           <div className="flex justify-end mt-6">
             <button
-              className="border py-3 px-6 bg-black text-white transform hover:-translate-y-1 transition duration-300"
+              className="border py-3 px-6 bg-black text-white transform hover:-translate-y-1 transition duration-300 cursor-pointer"
             >
               Order Now
             </button>
@@ -52,7 +52,7 @@ export const Cart = () => {
           <h1 className="text-5xl font-semibold">Your cart is empty</h1>
           <button
             onClick={() => navigate('/shop')}
-            className="border mt-10 py-3 px-4 bg-black text-white transform hover:-translate-y-1 transition duration-300"
+            className="border mt-10 py-3 px-4 bg-black text-white transform hover:-translate-y-1 transition duration-300 cursor-pointer"
           >
             Continue shopping
           </button>
