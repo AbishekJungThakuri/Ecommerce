@@ -6,8 +6,10 @@ import logo from '../assets/brocade-logo.avif';
 import { VscAccount } from "react-icons/vsc";
 import { GiShoppingBag } from "react-icons/gi";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MenuBar } from './MenuBar';
+import { SearchCard } from './SearchCard';
+import { clearSearch, setSearchTerm } from '../Redux/SearchSlice';
 
 export const Navbar = () => {
   const [barShow, setBarShow] = useState(false);
@@ -19,6 +21,9 @@ export const Navbar = () => {
   const cartItems = useSelector(state => state.cart.cart);
 
   const totalQty = cartItems.reduce((total, item) => total + item.qty, 0);
+
+  const dispatch = useDispatch();
+  const { searchTerm, filteredResults } = useSelector(state => state.search);
 
 
 // Handling Navbar Scroll behavior
@@ -74,15 +79,16 @@ export const Navbar = () => {
           searchShow ? 
           <div className='flex items-center gap-2'>
             <div className='flex items-center relative'>
-              <input type="text" placeholder='Search' className='border border-white text-white w-[15rem] px-3 py-1 outline-none' />
+              <input value={searchTerm} onChange={(e)=>dispatch(setSearchTerm(e.target.value))} type="text" placeholder='Search' className='border border-white text-white w-[15rem] px-3 py-1 outline-none' />
               <CiSearch className='absolute right-2 text-white hover:scale-110 cursor-pointer'/>
             </div>
-            <MdClose onClick={()=>setSearchShow(false)} className='text-2xl text-white hover:scale-110 hover:text-slate-300 cursor-pointer'/>
-          </div>
-          :
-        <CiSearch onClick={()=>setSearchShow(true)}  className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-100 ease-in-out' />
+            <MdClose onClick={()=>{setSearchShow(false),dispatch(clearSearch())}} className='text-2xl text-white hover:scale-110 hover:text-slate-300 cursor-pointer'/>
+           </div>
+            :
+           <CiSearch onClick={()=>setSearchShow(true)}  className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-100 ease-in-out' />
         }
       </div>
+
 
       {/* Center Section: Logo */}
       <div className='w-[4rem] sm:w-[5rem] h-auto'>
@@ -93,6 +99,7 @@ export const Navbar = () => {
           alt="Brocade Logo"
         />
       </div>
+
 
       {/* Right Section: Account and Shopping Bag Icons */}
       <div className='flex items-center gap-3 sm:gap-5'>
@@ -113,6 +120,13 @@ export const Navbar = () => {
         barShow &&
         <MenuBar setBarShow={setBarShow}/>
       }
+    </div>
+    <div>
+    {    
+            searchShow && filteredResults.length > 0 && (
+              <SearchCard filteredResults={filteredResults} />
+            )
+        }
     </div>
     </div>
   );
