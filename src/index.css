@@ -4,6 +4,9 @@
     font-family: "Assistant", sans-serif;
     font: rgb(18, 18, 18);
 }
+.no-scroll {
+  overflow: hidden;
+}
 
 @keyframes swing {
     0% {

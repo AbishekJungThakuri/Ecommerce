@@ -70,6 +70,21 @@ export const Navbar = () => {
   }, []);
 
 
+    // Disable scrolling when the sidebar is shown
+    useEffect(() => {
+      if (barShow) {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+      }
+  
+      // Cleanup function to remove the class when the component unmounts
+      return () => {
+        document.body.classList.remove('no-scroll');
+      };
+    }, [barShow]);
+
+
   return (
     <div className='relative'>
     <nav
@@ -133,7 +148,6 @@ export const Navbar = () => {
     {    
         searchShow && filteredResults.length > 0 && (
               <SearchCard searchCard={searchCard} filteredResults={filteredResults} />
-              // <SearchCard filteredResults={filteredResults} />
             )
         }
     </div>
