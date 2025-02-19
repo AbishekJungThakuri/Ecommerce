@@ -33,15 +33,15 @@ export const ItemDetails = () => {
             <p className='text-xl mt-2 font-normal'>Rs{price}.00</p>
             <p className='text-[13px] leading-[19.5px] text-[rgba(18,18,18,0.75)] mt-3 font-normal'>Size</p>
             <div className='mt-3'>
-                <button onClick={()=>setActive('m')} className={`px-5 py-2 rounded-3xl mr-2 ${active === 'm' ? 'bg-black text-white': ''} border border-gray-500 hover:border-gray-800`}>M</button>
-                <button onClick={()=>setActive('l')} className={`px-5 py-2 rounded-3xl mr-2 ${active === 'l' ? 'bg-black text-white': ''} border border-gray-500 hover:border-gray-800`}>L</button>
-                <button onClick={()=>setActive('xl')} className={`px-5 py-2 rounded-3xl mr-2 ${active === 'xl' ? 'bg-black text-white': ''} border border-gray-500 hover:border-gray-800`}>XL</button>
+                <button onClick={()=>setActive('m')} className={`px-5 py-2 rounded-3xl mr-2 ${active === 'm' ? 'bg-black text-white': ''} cursor-pointer border border-gray-500 hover:border-gray-800`}>M</button>
+                <button onClick={()=>setActive('l')} className={`px-5 py-2 rounded-3xl mr-2 ${active === 'l' ? 'bg-black text-white': ''} cursor-pointer border border-gray-500 hover:border-gray-800`}>L</button>
+                <button onClick={()=>setActive('xl')} className={`px-5 py-2 rounded-3xl mr-2 ${active === 'xl' ? 'bg-black text-white': ''} cursor-pointer border border-gray-500 hover:border-gray-800`}>XL</button>
             </div>
             <p className='text-[13px] leading-[19.5px] text-[rgba(18,18,18,0.75)] mt-4 font-normal'>Qunatity</p>
 
             <div className='flex flex-col mt-7'>
-              <button onClick={()=>{dispatch(addToCart({id,name,price,img,qty:1})),navigate('/cart')}} className='text-center py-3 border border-gray-800 transform hover:-translate-y-1 transition duration-300 hover:border-gray-950 hover:border-2'>Add to cart</button>
-              <button className='text-center py-3 border bg-black text-white border-gray-800 mt-3 transform hover:-translate-y-1 transition duration-300'>Buy it now</button>
+              <button onClick={()=>{dispatch(addToCart({id,name,price,img,qty:1})),navigate('/cart')}} className='text-center py-3 cursor-pointer border border-gray-800 transform hover:-translate-y-1 transition duration-300 hover:border-gray-950 hover:border-2'>Add to cart</button>
+              <button className='text-center py-3 border bg-black cursor-pointer text-white border-gray-800 mt-3 transform hover:-translate-y-1 transition duration-300'>Buy it now</button>
             </div>
       
             <p className='text-[17px] font-normal mt-8 leading-[28.8px] text-[rgba(18,18,18,0.75)] '>{item.desc}</p>

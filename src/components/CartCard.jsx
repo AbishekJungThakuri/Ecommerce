@@ -21,9 +21,9 @@ export const CartCard = ({item}) => {
           </div>
           <div className='flex items-center gap-10 relative left-[-65px]'>
           <div className="w-fit flex items-center border border-gray-400 rounded px-4 py-2 mt-2">
-        <button onClick={()=> item.qty > 1 ? dispatch(decrement(item)) : dispatch(removeFromCart(item))} className="text-3xl text-gray-600 px-2 focus:outline-none font-thin">-</button>
+        <button onClick={()=> item.qty > 1 ? dispatch(decrement(item)) : dispatch(removeFromCart(item))} className="text-3xl cursor-pointer text-gray-600 px-2 focus:outline-none font-thin">-</button>
         <span className="text-2xl text-gray-800 mx-7 font-thin">{item.qty}</span>
-        <button onClick={()=>dispatch(increment(item))} className="text-3xl text-gray-600 px-2 focus:outline-none font-thin">+</button>
+        <button onClick={()=>dispatch(increment(item))} className="text-3xl cursor-pointer text-gray-600 px-2 focus:outline-none font-thin">+</button>
          </div>
             <RiDeleteBin6Line onClick={()=>dispatch(removeFromCart(item))} className='cursor-pointer font-thin text-gray-500' />
           </div>
