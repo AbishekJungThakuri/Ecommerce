@@ -7,6 +7,7 @@ import { Footer } from "./components/Footer"
 import { ItemDetails } from "./components/ItemDetails"
 import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Order from "./pages/Order"
 
 
 const ScrollToTop = () => {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/shop" element={<Shop/>} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/itemDetail/:id" element={<ItemDetails/>} />
+          <Route path="/order" element={<Order/>} />
        </Routes>
        <Footer/>
     </BrowserRouter>
