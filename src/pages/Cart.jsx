@@ -39,8 +39,8 @@ export const Cart = () => {
           </div>
 
           {/* Order Now Button */}
-          <div className="flex justify-end mt-6">
-            <button
+          <div onClick={()=>navigate('/order')} className="flex justify-end mt-6">
+            <button 
               className="border py-3 px-6 bg-black text-white transform hover:-translate-y-1 transition duration-300 cursor-pointer"
             >
               Order Now
@@ -48,7 +48,7 @@ export const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-[35.5vh]">
+        <div className="flex flex-col items-center justify-center h-[53vh]">
           <h1 className="text-5xl font-semibold">Your cart is empty</h1>
           <button
             onClick={() => navigate('/shop')}
