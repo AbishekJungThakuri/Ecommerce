@@ -28,7 +28,6 @@ export const Cart = () => {
           {/* Column Headers - Hidden on mobile, visible on tablet+ */}
           <div className="hidden sm:flex justify-between text-sm text-gray-500 mt-8 sm:mt-10 mb-3">
             <span className="flex-1">PRODUCT</span>
-            <span className="flex-1 text-center">QUANTITY</span>
             <span className="flex-1 text-right">TOTAL</span>
           </div>
 
