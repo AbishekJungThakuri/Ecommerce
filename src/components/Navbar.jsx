@@ -19,14 +19,12 @@ export const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
 
   const cartItems = useSelector(state => state.cart.cart);
-
   const totalQty = cartItems.reduce((total, item) => total + item.qty, 0);
 
   const dispatch = useDispatch();
   const { searchTerm, filteredResults } = useSelector(state => state.search);
 
-
-// Handling Navbar Scroll behavior
+  // Handling Navbar Scroll behavior
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
@@ -40,13 +38,13 @@ export const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll); // Cleanup on unmount
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [prevScrollPos]);
 
-  
   // Handling outsideClick
-  const searchCard = useRef(null)
+  const searchCard = useRef(null);
+  const searchInputRef = useRef(null);
   const bar = useRef(null);
 
   const handleClickOutside = (e) => {
@@ -69,88 +67,124 @@ export const Navbar = () => {
     };
   }, []);
 
+  // Focus search input when search is opened
+  useEffect(() => {
+    if (searchShow && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [searchShow]);
 
-    // Disable scrolling when the sidebar is shown
-    useEffect(() => {
-      if (barShow) {
-        document.body.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-      }
-  
-      // Cleanup function to remove the class when the component unmounts
-      return () => {
-        document.body.classList.remove('no-scroll');
-      };
-    }, [barShow]);
+  // Disable scrolling when the sidebar is shown
+  useEffect(() => {
+    if (barShow) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
 
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [barShow]);
+
+  // Handle search toggle
+  const handleSearchToggle = () => {
+    setSearchShow(!searchShow);
+    if (!searchShow) {
+      dispatch(clearSearch());
+    }
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    dispatch(setSearchTerm(e.target.value));
+  };
 
   return (
     <div className='relative'>
-    <nav
-      ref={navbar}
-      className='flex justify-between items-center py-3 px-3 sm:py-6 sm:px-10 bg-[#E11F2C] sticky z-10 transition-all duration-500 scroll-smooth'
-    >
-      {/* Left Section: Menu and Search Icons */}
-      <div className='flex items-center gap-3 sm:gap-5'>
-        { barShow ? 
-        <MdClose onClick={()=>setBarShow(false)} className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-100 ease-in-out' />
-        :
-        <CiMenuBurger onClick={()=>setBarShow(true)} className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-100 ease-in-out' />
-        }
-        {
-          searchShow ? 
-          <div className='flex items-center gap-2'>
-            <div className='flex items-center relative'>
-              <input value={searchTerm} onChange={(e)=>dispatch(setSearchTerm(e.target.value))} type="text" placeholder='Search' className='border border-white text-white w-[15rem] px-3 py-1 outline-none' />
-              <CiSearch className='absolute right-2 text-white hover:scale-110 cursor-pointer'/>
+      <nav
+        ref={navbar}
+        className='flex justify-between items-center py-3 px-4 sm:py-4 sm:px-6 md:py-6 md:px-10 bg-[#E11F2C] sticky z-10 transition-all duration-500 scroll-smooth'
+      >
+        {/* Left Section: Menu and Search Icons */}
+        <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
+          {barShow ? (
+            <MdClose 
+              onClick={() => setBarShow(false)} 
+              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' 
+            />
+          ) : (
+            <CiMenuBurger 
+              onClick={() => setBarShow(true)} 
+              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' 
+            />
+          )}
+          
+          {/* Search Input - Responsive */}
+          {searchShow ? (
+            <div className='flex items-center gap-2 sm:gap-3'>
+              <div className='flex items-center relative'>
+                <input 
+                  ref={searchInputRef}
+                  value={searchTerm} 
+                  onChange={handleSearchChange}
+                  type="text" 
+                  placeholder='Search...' 
+                  className='border border-white bg-transparent text-white w-[140px] sm:w-[180px] md:w-[15rem] px-3 py-1 sm:py-2 outline-none placeholder:text-white/80 rounded text-sm sm:text-base'
+                />
+                <CiSearch className='absolute right-2 sm:right-3 text-white text-lg sm:text-xl' />
+              </div>
+              <MdClose 
+                onClick={handleSearchToggle}
+                className='text-xl sm:text-2xl text-white hover:scale-110 hover:text-slate-200 cursor-pointer transition-all duration-200' 
+              />
             </div>
-            <MdClose onClick={()=>{setSearchShow(false),dispatch(clearSearch())}} className='text-2xl text-white hover:scale-110 hover:text-slate-300 cursor-pointer'/>
-           </div>
-            :
-           <CiSearch onClick={()=>setSearchShow(true)}  className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-100 ease-in-out' />
-        }
-      </div>
-
-
-      {/* Center Section: Logo */}
-      <div className='w-[4rem] sm:w-[5rem] h-auto'>
-        <img
-          onClick={() => navigate('/')}
-          className='w-full h-full cursor-pointer swing-animation'
-          src={logo}
-          alt="Brocade Logo"
-        />
-      </div>
-
-
-      {/* Right Section: Account and Shopping Bag Icons */}
-      <div className='flex items-center gap-3 sm:gap-5'>
-        <VscAccount className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-100 ease-in-out' />
-        <div className='flex '>
-          <GiShoppingBag
-            onClick={() => navigate('/cart')}
-            className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-100 ease-in-out'/>
-            {
-              cartItems.length > 0 ?
-              <p className='text-sm text-white font-semibold'>{totalQty}</p> : ''
-            }
+          ) : (
+            <CiSearch 
+              onClick={handleSearchToggle}
+              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' 
+            />
+          )}
         </div>
+
+        {/* Center Section: Logo */}
+        <div className='w-[3.5rem] sm:w-[4rem] md:w-[5rem] h-auto'>
+          <img
+            onClick={() => navigate('/')}
+            className='w-full h-full cursor-pointer swing-animation'
+            src={logo}
+            alt="Brocade Logo"
+          />
+        </div>
+
+        {/* Right Section: Account and Shopping Bag Icons */}
+        <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
+          <VscAccount className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' />
+          <div className='relative flex items-center'>
+            <GiShoppingBag
+              onClick={() => navigate('/cart')}
+              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out'
+            />
+            {cartItems.length > 0 && (
+              <span className='absolute -top-2 -right-2 bg-white text-[#E11F2C] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold'>
+                {totalQty}
+              </span>
+            )}
+          </div>
+        </div>
+      </nav>
+
+      {/* Menu Bar */}
+      <div className='absolute z-20' ref={bar}>
+        {barShow && <MenuBar setBarShow={setBarShow} />}
       </div>
-    </nav>
-    <div className='absolute z-10' ref={bar}>
-      { 
-        barShow &&
-        <MenuBar setBarShow={setBarShow}/>
-      }
-    </div>
-    <div>
-    {    
-        searchShow && filteredResults.length > 0 && (
-              <SearchCard searchCard={searchCard} filteredResults={filteredResults} />
-            )
-        }
-    </div>
+
+      {/* Search Results */}
+      <div ref={searchCard}>
+        {searchShow && filteredResults.length > 0 && (
+          <SearchCard searchCard={searchCard} filteredResults={filteredResults} />
+        )}
+      </div>
     </div>
   );
 };

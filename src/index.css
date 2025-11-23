@@ -8,6 +8,22 @@
   overflow: hidden;
 }
 
+/* Improve mobile search experience */
+@media (max-width: 640px) {
+  .search-input-mobile {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Ensure search results are properly positioned on mobile */
+@media (max-width: 768px) {
+  .search-results-container {
+    width: 100vw;
+    left: 0;
+    right: 0;
+  }
+}
+
 @keyframes swing {
     0% {
       transform: rotateY(0deg);
