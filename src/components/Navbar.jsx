@@ -55,8 +55,7 @@ export const Navbar = () => {
   
     // Close search if clicking outside of search input and SearchCard
     if (searchCard.current && !searchCard.current.contains(e.target)) {
-      setSearchShow(false);
-      dispatch(clearSearch());
+      handleCloseSearch();
     }
   };
 
@@ -70,7 +69,10 @@ export const Navbar = () => {
   // Focus search input when search is opened
   useEffect(() => {
     if (searchShow && searchInputRef.current) {
-      searchInputRef.current.focus();
+      // Small timeout to ensure the input is visible before focusing
+      setTimeout(() => {
+        searchInputRef.current.focus();
+      }, 100);
     }
   }, [searchShow]);
 
@@ -92,12 +94,38 @@ export const Navbar = () => {
     setSearchShow(!searchShow);
     if (!searchShow) {
       dispatch(clearSearch());
+    } else {
+      // When closing search, blur the input to remove focus and prevent zoom
+      if (searchInputRef.current) {
+        searchInputRef.current.blur();
+      }
     }
+  };
+
+  // Handle close search properly
+  const handleCloseSearch = () => {
+    setSearchShow(false);
+    dispatch(clearSearch());
+    
+    // Blur the input to remove focus and prevent zoom issues
+    if (searchInputRef.current) {
+      searchInputRef.current.blur();
+    }
+    
+    // Force the viewport to reset by triggering a resize event
+    window.dispatchEvent(new Event('resize'));
   };
 
   // Handle search input change
   const handleSearchChange = (e) => {
     dispatch(setSearchTerm(e.target.value));
+  };
+
+  // Handle key press (Escape to close search)
+  const handleKeyPress = (e) => {
+    if (e.key === 'Escape') {
+      handleCloseSearch();
+    }
   };
 
   return (
@@ -128,14 +156,16 @@ export const Navbar = () => {
                   ref={searchInputRef}
                   value={searchTerm} 
                   onChange={handleSearchChange}
+                  onKeyDown={handleKeyPress}
                   type="text" 
                   placeholder='Search...' 
-                  className='border border-white bg-transparent text-white w-[140px] sm:w-[180px] md:w-[15rem] px-3 py-1 sm:py-2 outline-none placeholder:text-white/80 rounded text-sm sm:text-base'
+                  className='border border-white bg-transparent text-white w-[140px] sm:w-[180px] md:w-[15rem] px-3 py-2 sm:py-2 outline-none placeholder:text-white/80 rounded text-base sm:text-base search-input'
+                  style={{ fontSize: '16px' }} // Prevents zoom on iOS
                 />
                 <CiSearch className='absolute right-2 sm:right-3 text-white text-lg sm:text-xl' />
               </div>
               <MdClose 
-                onClick={handleSearchToggle}
+                onClick={handleCloseSearch}
                 className='text-xl sm:text-2xl text-white hover:scale-110 hover:text-slate-200 cursor-pointer transition-all duration-200' 
               />
             </div>

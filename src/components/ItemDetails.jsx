@@ -4,6 +4,7 @@ import { dropIV } from '../assets/Data';
 import { FiShare } from "react-icons/fi";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../Redux/CartSlice';
+import { ChevronLeft, ChevronRight } from 'lucide-react'; // You can use react-icons instead
 
 export const ItemDetails = () => {
     const { id } = useParams();
@@ -18,22 +19,81 @@ export const ItemDetails = () => {
     const img = item.front_img;
 
     const [active, setActive] = useState('m');
+    const [currentSlide, setCurrentSlide] = useState(0);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const images = [item.front_img, item.back_img];
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    };
 
     return (
         <div className='py-6 sm:py-8 md:py-10 px-4 sm:px-6 lg:px-8'>
             <div className='flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-[13rem]'>
-                {/* Images Section */}
+                {/* Images Section with Slider for Mobile */}
                 <div className='w-full lg:w-[50%]'>
-                    <div className='flex flex-col md:flex-row lg:flex-col gap-4'>
+                    {/* Mobile Slider */}
+                    <div className='block lg:hidden relative'>
+                        <div className='relative overflow-hidden rounded-3xl border-2'>
+                            <div 
+                                className='flex transition-transform duration-300 ease-in-out'
+                                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                            >
+                                {images.map((image, index) => (
+                                    <div key={index} className='w-full flex-shrink-0'>
+                                        <img 
+                                            className='w-full h-auto'
+                                            src={image}
+                                            alt={index === 0 ? name : `${name} back view`}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                            
+                            {/* Navigation Arrows */}
+                            <button 
+                                onClick={prevSlide}
+                                className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 transition-all duration-200 shadow-lg'
+                            >
+                                <ChevronLeft className='w-5 h-5' />
+                            </button>
+                            <button 
+                                onClick={nextSlide}
+                                className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 transition-all duration-200 shadow-lg'
+                            >
+                                <ChevronRight className='w-5 h-5' />
+                            </button>
+                            
+                            {/* Slide Indicators */}
+                            <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2'>
+                                {images.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentSlide(index)}
+                                        className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                                            currentSlide === index ? 'bg-white' : 'bg-white/50'
+                                        }`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className='hidden lg:flex flex-col gap-4'>
                         <img 
-                            className='w-full max-w-full md:max-w-[20rem] lg:max-w-[27rem] border-2 rounded-3xl mx-auto lg:mx-0 lg:relative lg:left-[45%]' 
+                            className='w-full max-w-[27rem] border-2 rounded-3xl relative left-[45%]' 
                             src={item.front_img} 
                             alt={name} 
                         />
                         <img 
-                            className='w-full max-w-full md:max-w-[20rem] lg:max-w-[27rem] border-2 rounded-3xl mx-auto lg:mx-0 lg:relative lg:left-[20%] lg:mt-3' 
+                            className='w-full max-w-[27rem] border-2 rounded-3xl relative left-[20%] mt-3' 
                             src={item.back_img} 
                             alt={`${name} back view`} 
                         />
