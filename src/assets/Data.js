@@ -10,7 +10,7 @@ import satingreenfront from './images/satingreenfront.webp';
 import satingreenback from './images/satingreenback.webp';
 import brocadenewhoodiefront from './images/brocadenewhoodiefront.webp';
 import brocadenewhoodieback from './images/brocadenewhoodieback.webp';
-import dino from './images/Dino.png'
+import dino from './images/DIno.png'
 import hoodies from './images/Hoodie.png'
 import jacket from './images/Jacket.png'
 import sweatshirt from './images/Sweatshirt.png'
