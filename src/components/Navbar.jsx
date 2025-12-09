@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CiMenuBurger } from "react-icons/ci";
+import { CiMenuBurger, CiSearch } from "react-icons/ci";
 import { MdClose } from "react-icons/md";
-import { CiSearch } from "react-icons/ci";
 import logo from '../assets/brocade-logo.avif';
 import { VscAccount } from "react-icons/vsc";
 import { GiShoppingBag } from "react-icons/gi";
@@ -24,134 +23,81 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const { searchTerm, filteredResults } = useSelector(state => state.search);
 
-  // Handling Navbar Scroll behavior
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      if (prevScrollPos > currentScrollPos) {
-        navbar.current.style.top = '0px';
-      } else {
-        navbar.current.style.top = '-130px';
-      }
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [prevScrollPos]);
-
-  // Handling outsideClick
   const searchCard = useRef(null);
   const searchInputRef = useRef(null);
   const bar = useRef(null);
 
+  // Scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      navbar.current.style.top = prevScrollPos > currentScrollPos ? '0px' : '-130px';
+      setPrevScrollPos(currentScrollPos);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
+
   const handleClickOutside = (e) => {
-    // Close MenuBar if clicking outside of it
-    if (bar.current && !bar.current.contains(e.target)) {
-      setBarShow(false);
-    }
-  
-    // Close search if clicking outside of search input and SearchCard
-    if (searchCard.current && !searchCard.current.contains(e.target)) {
-      handleCloseSearch();
-    }
+    if (bar.current && !bar.current.contains(e.target)) setBarShow(false);
+    if (searchCard.current && !searchCard.current.contains(e.target)) handleCloseSearch();
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Focus search input when search is opened
   useEffect(() => {
     if (searchShow && searchInputRef.current) {
-      // Small timeout to ensure the input is visible before focusing
-      setTimeout(() => {
-        searchInputRef.current.focus();
-      }, 100);
+      setTimeout(() => searchInputRef.current.focus(), 100);
     }
   }, [searchShow]);
 
-  // Disable scrolling when the sidebar is shown
   useEffect(() => {
-    if (barShow) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-    }
-
-    return () => {
-      document.body.classList.remove('no-scroll');
-    };
+    document.body.classList.toggle('no-scroll', barShow);
   }, [barShow]);
 
-  // Handle search toggle
   const handleSearchToggle = () => {
     setSearchShow(!searchShow);
-    if (!searchShow) {
-      dispatch(clearSearch());
-    } else {
-      // When closing search, blur the input to remove focus and prevent zoom
-      if (searchInputRef.current) {
-        searchInputRef.current.blur();
-      }
-    }
+    if (!searchShow) dispatch(clearSearch());
+    else searchInputRef.current?.blur();
   };
 
-  // Handle close search properly
   const handleCloseSearch = () => {
     setSearchShow(false);
     dispatch(clearSearch());
-    
-    // Blur the input to remove focus and prevent zoom issues
-    if (searchInputRef.current) {
-      searchInputRef.current.blur();
-    }
-    
-    // Force the viewport to reset by triggering a resize event
+    searchInputRef.current?.blur();
     window.dispatchEvent(new Event('resize'));
   };
 
-  // Handle search input change
-  const handleSearchChange = (e) => {
-    dispatch(setSearchTerm(e.target.value));
-  };
-
-  // Handle key press (Escape to close search)
-  const handleKeyPress = (e) => {
-    if (e.key === 'Escape') {
-      handleCloseSearch();
-    }
-  };
+  const handleSearchChange = (e) => dispatch(setSearchTerm(e.target.value));
+  const handleKeyPress = (e) => { if (e.key === 'Escape') handleCloseSearch(); };
 
   return (
     <div className='relative'>
       <nav
         ref={navbar}
-        className='flex justify-between items-center py-3 px-4 sm:py-4 sm:px-6 md:py-6 md:px-10 bg-[#E11F2C] sticky z-10 transition-all duration-500 scroll-smooth'
+        className='flex justify-between items-center py-3 px-4 sm:py-4 sm:px-6 md:py-5 md:px-10 bg-[#1a1a1a] sticky top-0 z-20 shadow-md transition-all duration-500'
       >
-        {/* Left Section: Menu and Search Icons */}
+        {/* Left Section: Menu & Search */}
         <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
           {barShow ? (
             <MdClose 
               onClick={() => setBarShow(false)} 
-              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' 
+              className='text-2xl sm:text-3xl text-[#e11f2c] cursor-pointer hover:scale-110 transition-transform duration-200' 
             />
           ) : (
             <CiMenuBurger 
               onClick={() => setBarShow(true)} 
-              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' 
+              className='text-2xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200' 
             />
           )}
-          
-          {/* Search Input - Responsive */}
+
+          {/* Search */}
           {searchShow ? (
             <div className='flex items-center gap-2 sm:gap-3'>
-              <div className='flex items-center relative'>
+              <div className='relative'>
                 <input 
                   ref={searchInputRef}
                   value={searchTerm} 
@@ -159,44 +105,45 @@ export const Navbar = () => {
                   onKeyDown={handleKeyPress}
                   type="text" 
                   placeholder='Search...' 
-                  className='border border-white bg-transparent text-white w-[140px] sm:w-[180px] md:w-[15rem] px-3 py-2 sm:py-2 outline-none placeholder:text-white/80 rounded text-base sm:text-base search-input'
-                  style={{ fontSize: '16px' }} // Prevents zoom on iOS
+                  className='border border-[#e11f2c] bg-[#1a1a1a] text-white w-[150px] sm:w-[180px] md:w-[15rem] px-3 py-2 outline-none placeholder:text-white/70 rounded-md transition'
+                  style={{ fontSize: '16px' }}
                 />
-                <CiSearch className='absolute right-2 sm:right-3 text-white text-lg sm:text-xl' />
+                <CiSearch className='absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-[#e11f2c] text-lg sm:text-xl' />
               </div>
               <MdClose 
                 onClick={handleCloseSearch}
-                className='text-xl sm:text-2xl text-white hover:scale-110 hover:text-slate-200 cursor-pointer transition-all duration-200' 
+                className='text-2xl sm:text-3xl text-white hover:text-[#e11f2c] cursor-pointer transition-colors duration-200' 
               />
             </div>
           ) : (
             <CiSearch 
               onClick={handleSearchToggle}
-              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' 
+              className='text-2xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200' 
             />
           )}
         </div>
 
-        {/* Center Section: Logo */}
+        {/* Center Logo */}
         <div className='w-[3.5rem] sm:w-[4rem] md:w-[5rem] h-auto'>
           <img
             onClick={() => navigate('/')}
-            className='w-full h-full cursor-pointer swing-animation'
+            className='w-full h-full cursor-pointer text-[#e11f2c]'
             src={logo}
+            style={{ filter: "brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(7463%) hue-rotate(0deg) brightness(100%) contrast(101%)" }}
             alt="Brocade Logo"
           />
         </div>
 
-        {/* Right Section: Account and Shopping Bag Icons */}
+        {/* Right Section: Account & Cart */}
         <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
-          <VscAccount className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out' />
+          <VscAccount className='text-2xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200' />
           <div className='relative flex items-center'>
             <GiShoppingBag
               onClick={() => navigate('/cart')}
-              className='text-xl sm:text-2xl text-white cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out'
+              className='text-2xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200'
             />
             {cartItems.length > 0 && (
-              <span className='absolute -top-2 -right-2 bg-white text-[#E11F2C] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold'>
+              <span className='absolute -top-2 -right-2 bg-[#e11f2c] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold'>
                 {totalQty}
               </span>
             )}

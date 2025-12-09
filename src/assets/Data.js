@@ -41,6 +41,8 @@ import beigesweatshirtfront from './images/beigesweatshirtfront.webp'
 import blackpulloverfront from './images/blackpulloverfront.webp'
 import whitepullover from './images/whitepullover.jpg'
 import greypullover from './images/greypullover.jpg'
+import bro_hero1 from './images/bro_hero1.webp'
+import bro_hero2 from './images/bro_hero2.webp'
 
 
 export const catergory_list = [
