@@ -22,12 +22,8 @@ const SignUp = () => {
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
       email: Yup.string().email("Invalid email").required("Email is required"),
-      password: Yup.string()
-        .min(8, "At least 8 characters")
-        .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Confirm your password"),
+      password: Yup.string().min(8, "At least 8 characters").required("Password is required"),
+      confirmPassword: Yup.string().oneOf([Yup.ref("password")], "Passwords must match").required("Confirm your password"),
     }),
 
     onSubmit: (values, { resetForm }) => {
@@ -90,7 +86,7 @@ const SignUp = () => {
 
           <button
             type="submit"
-            className="w-full mt-6 py-3 rounded-full text-white font-semibold bg-[#e11f2c] hover:opacity-90 transition-all"
+            className="w-full mt-6 py-3 rounded-full text-white font-semibold bg-[#e11f2c] hover:opacity-90 transition-all  cursor-pointer"
           >
             Continue
           </button>

@@ -18,9 +18,7 @@ const Login = () => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email")
-        .required("Email is required"),
+      email: Yup.string().email("Invalid email").required("Email is required"),
       password: Yup.string().required("Password is required"),
     }),
 
@@ -91,7 +89,7 @@ const Login = () => {
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full py-3 rounded-full text-white font-semibold bg-[#e11f2c] hover:opacity-90 transition-all"
+            className="w-full py-3 rounded-full text-white font-semibold bg-[#e11f2c] hover:opacity-90 transition-all cursor-pointer"
           >
             Login
           </button>
