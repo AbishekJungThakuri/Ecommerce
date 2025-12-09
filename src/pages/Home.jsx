@@ -9,12 +9,12 @@ export const Home = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='bg-[#1a1a1a] w-full h-[80vh] flex justify-center items-center relative overflow-hidden'>
+    <div className='bg-[#1a1a1a] w-full h-[82vh] flex justify-center items-center relative overflow-hidden'>
     
 
 
 
-      <div className='bg-[#1a1a1a] w-full h-[82vh] flex flex-col md:flex-row items-center justify-between px-6 md:px-16 relative overflow-hidden'>
+      <div className='bg-[#1a1a1a] w-full h-[80vh] flex flex-col md:flex-row items-center justify-between px-6 md:px-16 relative overflow-hidden'>
       <div className='flex justify-between w-full'>
 
       {/* Left Section: Text + Button */}
@@ -37,12 +37,12 @@ export const Home = () => {
 <div className='relative md:w-1/2 flex justify-center md:justify-end mt-10 md:mt-0 gap-4'>
   
   {/* Back Poster */}
-  <div className='w-50 sm:w-58 md:w-62 lg:w-66 border-2 border-[#e11f2c] rounded-lg overflow-hidden transform -rotate-3 z-10 shadow-lg'>
+  <div className='w-60 sm:w-68 md:w-72 lg:w-76 border-2 border-[#e11f2c] rounded-lg overflow-hidden transform -rotate-3 z-10 shadow-lg'>
     <img src={bro_hero1} alt="Poster 1" className='w-full h-full object-cover' />
   </div>
 
   {/* Front Poster (slightly higher) */}
-  <div className='w-50 sm:w-58 md:w-62 lg:w-66 border-2 border-[#e11f2c] rounded-lg overflow-hidden transform rotate-3 -ml-10 md:-ml-14 -translate-y-4 md:-translate-y-6 z-20 shadow-lg'>
+  <div className='w-60 sm:w-68 md:w-72 lg:w-76 border-2 border-[#e11f2c] rounded-lg overflow-hidden transform rotate-3 -ml-10 md:-ml-14 -translate-y-4 md:-translate-y-6 z-20 shadow-lg'>
     <img src={bro_hero2} alt="Poster 2" className='w-full h-full object-cover' />
   </div>
 </div>
