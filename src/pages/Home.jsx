@@ -14,7 +14,7 @@ export const Home = () => {
 
 
 
-      <div className='bg-[#1a1a1a] w-full h-[80vh] flex flex-col md:flex-row items-center justify-between px-6 md:px-16 relative overflow-hidden'>
+      <div className='bg-[#1a1a1a] w-full h-[82vh] flex flex-col md:flex-row items-center justify-between px-6 md:px-16 relative overflow-hidden'>
       <div className='flex justify-between w-full'>
 
       {/* Left Section: Text + Button */}
