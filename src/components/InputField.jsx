@@ -18,7 +18,7 @@ const InputField = ({
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordType = type === "password";
 
-  const baseInputClasses = `w-full outline-none text-sm `;
+  const baseInputClasses = `w-full outline-none text-sm text-white`;
 
   let inputElement;
   switch (type) {
