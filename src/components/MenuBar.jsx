@@ -7,7 +7,7 @@ export const MenuBar = ({ setBarShow }) => {
   const navigate = useNavigate();
 
   return (
-    <div className='bg-[#1a1a1a] text-white w-full sm:w-[22rem] h-screen sm:h-[82vh] p-6 sm:p-8 md:p-10 flex flex-col justify-between overflow-y-auto shadow-lg'>
+    <div className='bg-[#1a1a1a] text-white w-full sm:w-[22rem] h-screen sm:h-[90vh] p-6 sm:p-8 md:p-10 flex flex-col justify-between overflow-y-auto shadow-lg'>
       
       {/* Menu Items */}
       <ul className='text-base sm:text-lg flex flex-col gap-2 sm:gap-4 font-medium'>
@@ -28,7 +28,7 @@ export const MenuBar = ({ setBarShow }) => {
           <FaArrowRightLong className="text-sm sm:text-base" />
         </li>
         <li
-          onClick={() => { navigate('/about'); setBarShow(false); }}
+          // onClick={() => { navigate('/about'); setBarShow(false); }}
           className='cursor-pointer hover:bg-[#e11f2c] hover:text-white p-3 sm:p-3 rounded transition-colors duration-200'
         >
           ABOUT US

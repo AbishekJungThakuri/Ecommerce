@@ -7,8 +7,9 @@ import { GiShoppingBag } from "react-icons/gi";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MenuBar } from './MenuBar';
-import { SearchCard } from './SearchCard';
+
 import { clearSearch, setSearchTerm } from '../Redux/SearchSlice';
+import { SearchCard } from './shopComponent/SearchCard';
 
 export const Navbar = () => {
   const [barShow, setBarShow] = useState(false);
@@ -23,7 +24,7 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const { searchTerm, filteredResults } = useSelector(state => state.search);
 
-  const searchCard = useRef(null);
+  const searchRef = useRef(null);
   const searchInputRef = useRef(null);
   const bar = useRef(null);
 
@@ -40,7 +41,7 @@ export const Navbar = () => {
 
   const handleClickOutside = (e) => {
     if (bar.current && !bar.current.contains(e.target)) setBarShow(false);
-    if (searchCard.current && !searchCard.current.contains(e.target)) handleCloseSearch();
+    if (searchRef.current && !searchRef.current.contains(e.target)) handleCloseSearch();
   };
 
   useEffect(() => {
@@ -78,7 +79,7 @@ export const Navbar = () => {
     <div className='relative'>
       <nav
         ref={navbar}
-        className='flex justify-between items-center py-3 px-4 sm:py-4 sm:px-6 md:py-5 md:px-10 bg-[#1a1a1a] sticky top-0 z-20 shadow-md transition-all duration-500'
+        className='flex justify-between items-center py-3 px-4 sm:py-5 sm:px-6 md:py-11 md:px-10 bg-[#1a1a1a] sticky top-0 z-20 shadow-md transition-all duration-500'
       >
         {/* Left Section: Menu & Search */}
         <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
@@ -96,7 +97,7 @@ export const Navbar = () => {
 
           {/* Search */}
           {searchShow ? (
-            <div className='flex items-center gap-2 sm:gap-3'>
+            <div ref={searchRef} className='flex items-center gap-2 sm:gap-3'>
               <div className='relative'>
                 <input 
                   ref={searchInputRef}
@@ -105,15 +106,11 @@ export const Navbar = () => {
                   onKeyDown={handleKeyPress}
                   type="text" 
                   placeholder='Search...' 
-                  className='border border-[#e11f2c] bg-[#1a1a1a] text-white w-[150px] sm:w-[180px] md:w-[15rem] px-3 py-2 outline-none placeholder:text-white/70 rounded-md transition'
+                  className='border border-[#e11f2c] bg-[#1a1a1a] text-white w-[12rem] sm:[13rem] md:w-[15rem]  px-3 py-2 outline-none placeholder:text-white/70 rounded-md transition'
                   style={{ fontSize: '16px' }}
                 />
                 <CiSearch className='absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-[#e11f2c] text-lg sm:text-xl' />
               </div>
-              <MdClose 
-                onClick={handleCloseSearch}
-                className='text-2xl sm:text-3xl text-white hover:text-[#e11f2c] cursor-pointer transition-colors duration-200' 
-              />
             </div>
           ) : (
             <CiSearch 
@@ -124,7 +121,7 @@ export const Navbar = () => {
         </div>
 
         {/* Center Logo */}
-        <div className='w-[3.5rem] sm:w-[4rem] md:w-[5rem] h-auto'>
+        <div className='hidden sm:block absolute left-1/2 -translate-x-1/2 w-[3.5rem] sm:w-[4rem] md:w-[5rem] h-auto'>
           <img
             onClick={() => navigate('/')}
             className='w-full h-full cursor-pointer text-[#e11f2c]'
@@ -157,9 +154,9 @@ export const Navbar = () => {
       </div>
 
       {/* Search Results */}
-      <div ref={searchCard}>
+      <div ref={searchRef}>
         {searchShow && filteredResults.length > 0 && (
-          <SearchCard searchCard={searchCard} filteredResults={filteredResults} />
+          <SearchCard searchRef={searchRef} setSearchShow={setSearchShow} filteredResults={filteredResults} />
         )}
       </div>
     </div>

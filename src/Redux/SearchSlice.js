@@ -27,8 +27,14 @@ const SearchSlice = createSlice({
       state.searchTerm = '';
       state.filteredResults = [];
     },
+
+    removeFilteredItem: (state, action) => {
+      state.filteredResults = state.filteredResults.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
 });
 
-export const { setSearchTerm, clearSearch } = SearchSlice.actions;
+export const { setSearchTerm, clearSearch, removeFilteredItem } = SearchSlice.actions;
 export default SearchSlice.reducer;

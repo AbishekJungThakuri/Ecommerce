@@ -2,15 +2,15 @@ import React from 'react';
 import { MdClose } from "react-icons/md";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { clearSearch } from '../Redux/SearchSlice';
+import { clearSearch, removeFilteredItem } from '../../Redux/SearchSlice';
 
-export const SearchCard = ({filteredResults, searchCard}) => {
+export const SearchCard = ({filteredResults, searchRef, setSearchShow}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   return (
     <div 
-      ref={searchCard}  
+      ref={searchRef}  
       className="absolute top-[4.5rem] sm:top-[5.3rem] left-2 sm:left-4 md:left-[5.3rem] bg-white shadow-lg z-20 p-2 sm:p-3 md:p-4 w-[90vw] sm:w-[400px] md:w-[500px] max-h-[60vh] overflow-y-auto"
     >
       <ul className="space-y-1 sm:space-y-2">
@@ -20,6 +20,7 @@ export const SearchCard = ({filteredResults, searchCard}) => {
               onClick={() => {
                 navigate(`/itemDetail/${item.id}`);
                 dispatch(clearSearch());
+                setSearchShow(false);
               }} 
               className='flex items-center gap-2 sm:gap-3 flex-1 min-w-0 cursor-pointer'
             >
@@ -32,7 +33,7 @@ export const SearchCard = ({filteredResults, searchCard}) => {
                 {item.name}
               </span>
             </div>
-            <MdClose 
+            <MdClose onClick={()=>dispatch(removeFilteredItem(item.id))}
               className='cursor-pointer text-slate-400 text-lg sm:text-xl md:text-[20px] p-1 rounded-full hover:bg-slate-400 hover:text-white flex-shrink-0' 
             />
           </div>

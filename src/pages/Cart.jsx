@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CartCard } from '../components/CartCard';
 
-export const Cart = () => {
+const Cart = () => {
   const cartItems = useSelector(state => state.cart.cart);
   const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export const Cart = () => {
   return (
     <>
       {cartItems.length > 0 ? (
-        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-6 sm:py-8 md:py-10 bg-[#1a1a1a] text-white rounded-lg shadow-lg">
+        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-6 sm:py-8 md:py-14 bg-[#1a1a1a] text-white ">
           
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6">
@@ -22,7 +22,7 @@ export const Cart = () => {
             </h2>
             <button 
               onClick={() => navigate('/shop')}
-              className="text-[#e11f2c] hover:text-red-600 underline text-base sm:text-lg transition-colors duration-200"
+              className="text-[#e11f2c] hover:text-red-600 underline text-base sm:text-lg transition-colors duration-200 cursor-pointer"
             >
               Continue shopping
             </button>
@@ -60,7 +60,7 @@ export const Cart = () => {
         </div>
       ) : (
         // Empty Cart State
-        <div className="flex flex-col items-center justify-center h-[50vh] sm:h-[53vh] px-4 bg-[#1a1a1a] text-white rounded-lg shadow-lg">
+        <div className="flex flex-col items-center justify-center h-[50vh] sm:h-[57.3vh] px-4 bg-[#1a1a1a] text-white rounded-lg shadow-lg">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[#e11f2c]">
             Your cart is empty
           </h1>
@@ -75,3 +75,5 @@ export const Cart = () => {
     </>
   );
 };
+
+export default Cart

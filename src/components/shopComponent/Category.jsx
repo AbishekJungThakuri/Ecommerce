@@ -1,7 +1,7 @@
 import React from 'react'
-import {catergory_list} from '../assets/Data'
+import {catergory_list} from '../../assets/Data'
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategory } from '../Redux/CategorySlice';
+import { setCategory } from '../../Redux/CategorySlice';
 
 export const Category = () => {
    

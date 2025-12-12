@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { dropIV } from '../assets/Data';
+import { dropIV } from '../../assets/Data';
 import { FiShare } from "react-icons/fi";
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../Redux/CartSlice';
+import { addToCart } from '../../Redux/CartSlice';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export const ItemDetails = () => {
+const ItemDetails = () => {
     const { id } = useParams();
     const item = dropIV.find(item => item.id === parseInt(id));
 
@@ -29,7 +29,7 @@ export const ItemDetails = () => {
     const prevSlide = () => setCurrentSlide(prev => (prev === 0 ? images.length - 1 : prev - 1));
 
     return (
-        <div className='py-6 sm:py-8 md:py-10 px-4 sm:px-6 lg:px-8 bg-[#1a1a1a] text-white rounded-lg shadow-lg'>
+        <div className='py-6 sm:py-8 md:py-10 px-4 sm:px-6 lg:px-8 bg-[#1a1a1a] text-white'>
             <div className='flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-[13rem]'>
 
                 {/* Images Section */}
@@ -167,3 +167,5 @@ export const ItemDetails = () => {
         </div>
     );
 };
+
+export default ItemDetails

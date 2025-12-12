@@ -1,10 +1,10 @@
 import React from 'react'
-import { ItemCard } from '../components/ItemCard'
+import { ItemCard } from '../components/shopComponent/ItemCard'
 import { dropIV } from '../assets/Data'
-import { Category } from '../components/Category'
+import { Category } from '../components/shopComponent/Category'
 import { useSelector } from 'react-redux'
 
-export const Shop = () => {
+const Shop = () => {
   
   const selectedCategory = useSelector(state => state.category.category)
   const filteredItems = dropIV.filter(item => {
@@ -27,11 +27,18 @@ export const Shop = () => {
       </h1>
       
       {/* Updated grid layout for responsive columns */}
-      <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 md:gap-6 justify-items-center'>
+      { filteredItems.length > 0 ?
+        <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 md:gap-6 justify-items-center'>
         {
           filteredItems.map(item => <ItemCard key={item.id} item={item}/>)
         }
+      </div>:
+      <div>
+        <p className='text-white font-semibold text-5xl'>Product is not available</p>
       </div>
+      }
     </div>
   )
 }
+
+export default Shop
