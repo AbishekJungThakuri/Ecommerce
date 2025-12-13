@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { dropIV } from '../../assets/Data';
 import { FiShare } from "react-icons/fi";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/CartSlice';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+import { MdArrowBackIos } from "react-icons/md";
+import { MdArrowForwardIos } from "react-icons/md";
+
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Navigation, Pagination } from "swiper/modules";
 
 const ItemDetails = () => {
     const { id } = useParams();
@@ -19,14 +27,11 @@ const ItemDetails = () => {
     const img = item.front_img;
 
     const [active, setActive] = useState('m');
-    const [currentSlide, setCurrentSlide] = useState(0);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const images = [item.front_img, item.back_img];
 
-    const nextSlide = () => setCurrentSlide(prev => (prev === images.length - 1 ? 0 : prev + 1));
-    const prevSlide = () => setCurrentSlide(prev => (prev === 0 ? images.length - 1 : prev - 1));
 
     return (
         <div className='py-6 sm:py-8 md:py-10 px-4 sm:px-6 lg:px-8 bg-[#1a1a1a] text-white'>
@@ -34,65 +39,47 @@ const ItemDetails = () => {
 
                 {/* Images Section */}
                 <div className='w-full lg:w-[50%]'>
+
                     {/* Mobile Slider */}
                     <div className='block lg:hidden relative'>
-                        <div className='relative overflow-hidden rounded-3xl border-2 border-[#e11f2c]'>
-                            <div 
-                                className='flex transition-transform duration-300 ease-in-out'
-                                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                            >
-                                {images.map((image, index) => (
-                                    <div key={index} className='w-full flex-shrink-0'>
-                                        <img 
-                                            className='w-full h-auto rounded-3xl'
-                                            src={image}
-                                            alt={index === 0 ? name : `${name} back view`}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                            
-                            {/* Navigation Arrows */}
-                            <button 
-                                onClick={prevSlide}
-                                className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#e11f2c]/20 hover:bg-[#e11f2c]/40 rounded-full p-2 transition-all duration-200 shadow-lg'
-                            >
-                                <ChevronLeft className='w-5 h-5 text-[#e11f2c]' />
-                            </button>
-                            <button 
-                                onClick={nextSlide}
-                                className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#e11f2c]/20 hover:bg-[#e11f2c]/40 rounded-full p-2 transition-all duration-200 shadow-lg'
-                            >
-                                <ChevronRight className='w-5 h-5 text-[#e11f2c]' />
-                            </button>
-                            
-                            {/* Slide Indicators */}
-                            <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2'>
-                                {images.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setCurrentSlide(index)}
-                                        className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                                            currentSlide === index ? 'bg-[#e11f2c]' : 'bg-white/50'
-                                        }`}
+                        <Swiper
+                            modules={[Navigation, Pagination]}
+                            navigation={{
+                                prevEl: ".custom-prev",
+                                nextEl: ".custom-next",
+                            }}
+                            scrollbar={{ draggable: true }}
+                            pagination={{ clickable: true }}
+                            spaceBetween={20}
+                            slidesPerView={1}
+                        >
+                            {images.map((image, index) => (
+                                <SwiperSlide key={index}>
+                                    <img 
+                                        src={image} 
+                                        alt={index === 0 ? name : `${name} back view`}
+                                        className='w-full h-auto rounded-3xl'
                                     />
-                                ))}
-                            </div>
-                        </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+
+                        {/* Custom Arrow Buttons */}
+                            <button className="custom-prev absolute left-2 top-1/2 -translate-y-1/2 bg-[#1a1a1a] text-[#e11f2c] p-2 cursor-pointer rounded-full shadow-lg z-10 hover:bg-[#1a1a1a]/80 transition">
+                                <MdArrowBackIos />
+                            </button>
+                        
+                    
+                            <button className="custom-next absolute right-2 top-1/2 -translate-y-1/2 bg-[#1a1a1a] text-[#e11f2c] p-2 cursor-pointer rounded-full shadow-lg z-10 hover:bg-[#1a1a1a]/80 transition">
+                                <MdArrowForwardIos />
+                            </button>
+                    
                     </div>
 
                     {/* Desktop Layout */}
                     <div className='hidden lg:flex flex-col gap-4'>
-                        <img 
-                            className='w-full max-w-[27rem] border-2 border-[#e11f2c] rounded-3xl relative left-[45%]' 
-                            src={item.front_img} 
-                            alt={name} 
-                        />
-                        <img 
-                            className='w-full max-w-[27rem] border-2 border-[#e11f2c] rounded-3xl relative left-[20%] mt-3' 
-                            src={item.back_img} 
-                            alt={`${name} back view`} 
-                        />
+                         <img className='w-full max-w-[27rem] border-2 border-[#e11f2c] rounded-3xl relative left-[45%]' src={item.front_img} alt={name} /> 
+                         <img className='w-full max-w-[27rem] border-2 border-[#e11f2c] rounded-3xl relative left-[20%] mt-3' src={item.back_img} alt={name} />
                     </div>
                 </div>
 
@@ -168,4 +155,4 @@ const ItemDetails = () => {
     );
 };
 
-export default ItemDetails
+export default ItemDetails;
