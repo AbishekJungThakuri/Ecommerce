@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ItemCard } from '../components/shopComponent/ItemCard'
 import { dropIV } from '../assets/Data'
 import { Category } from '../components/shopComponent/Category'
@@ -6,11 +6,28 @@ import { useSelector } from 'react-redux'
 
 const Shop = () => {
   
-  const selectedCategory = useSelector(state => state.category.category)
+  const selectedCategory = useSelector(state => state.category.category);
+
+  const initialCount = 10;
+  const [visibleCount, setVisibleCount] = useState(initialCount);
+
+  // Filter items by category
   const filteredItems = dropIV.filter(item => {
     if (selectedCategory === 'All') return true;
     return item.catergory === selectedCategory;
   });
+
+  const visibleItems = filteredItems.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 5);
+  }
+
+  useEffect(() => {
+    setVisibleCount(initialCount);
+  },[selectedCategory]);
+
+  // console.log(visibleCount)
 
   return (
     <div className='bg-black px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[10rem] py-6 sm:py-8 md:py-10'>
@@ -27,12 +44,28 @@ const Shop = () => {
       </h1>
       
       {/* Updated grid layout for responsive columns */}
-      { filteredItems.length > 0 ?
+      { visibleItems.length > 0 ?
+      <>
         <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 md:gap-6 justify-items-center'>
         {
-          filteredItems.map(item => <ItemCard key={item.id} item={item}/>)
+          visibleItems.map(item => <ItemCard key={item.id} item={item}/>)
         }
-      </div>:
+      </div>
+      {/* load more button */}
+      {
+        visibleCount < filteredItems.length && (
+            <div className='flex justify-center mt-10'>
+              <button
+                onClick={handleLoadMore}
+                className='px-6 py-3 cursor-pointer border border-[#e11f2c] bg-[#e11f2c] text-white  transform hover:-translate-y-1 hover:bg-black hover:text-[#e11f2c] transition duration-300 rounded-md'
+              >
+                Load More
+              </button>
+            </div>
+        )
+      }
+      </>
+      :
       <div>
         <p className='text-white font-semibold text-5xl'>Product is not available</p>
       </div>
