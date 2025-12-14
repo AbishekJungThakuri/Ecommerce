@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <div className="bg-[#1a1a1a] w-full min-h-[82vh] flex justify-center items-center relative overflow-hidden">
-      <div className="bg-[#1a1a1a] w-full min-h-[80vh] flex flex-col md:flex-row items-center justify-between px-6 md:px-16 relative overflow-hidden">
+      <div className="bg-[#1a1a1a] w-full min-h-[80vh] flex flex-col md:flex-row items-center justify-between px-6 md:px-16 relative overflow-hidden pt-[30px] sm:pt-[50px] md:pt-[118px]">
 
         <div className="flex flex-col md:flex-row justify-between w-full gap-12">
           {/* LEFT SECTION */}

@@ -35,7 +35,7 @@ const ItemDetails = () => {
 
     return (
         <div className='py-6 sm:py-8 md:py-10 px-4 sm:px-6 lg:px-8 bg-[#1a1a1a] text-white'>
-            <div className='flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-[13rem]'>
+            <div className='flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-[13rem] pt-[30px] sm:pt-[50px] md:pt-[118px]'>
 
                 {/* Images Section */}
                 <div className='w-full lg:w-[50%]'>

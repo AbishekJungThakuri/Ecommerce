@@ -13,10 +13,9 @@ const Cart = () => {
   return (
     <>
       {cartItems.length > 0 ? (
-        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-6 sm:py-8 md:py-14 bg-[#1a1a1a] text-white ">
-          
+        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-12 md:py-14 bg-[#1a1a1a] text-white ">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6 pt-[30px] sm:pt-[50px] md:pt-[118px]">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#e11f2c]">
               Your Cart
             </h2>

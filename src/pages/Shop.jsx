@@ -31,7 +31,7 @@ const Shop = () => {
 
   return (
     <div className='bg-black px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[10rem] py-6 sm:py-8 md:py-10'>
-      <h1 className='text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-10 md:mb-12 lg:mb-14 mt-6 sm:mt-8 md:mt-10 text-center sm:text-left'>
+      <h1 className='text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl pt-[30px] sm:pt-[50px] md:pt-[118px] font-bold mb-8 sm:mb-10 md:mb-12 lg:mb-14 mt-6 sm:mt-8 md:mt-10 text-center sm:text-left'>
         SHOP BY CATEGORY
       </h1>
       

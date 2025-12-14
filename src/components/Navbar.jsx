@@ -79,7 +79,7 @@ export const Navbar = () => {
     <div className='relative'>
       <nav
         ref={navbar}
-        className='flex justify-between items-center py-3 px-4 sm:py-5 sm:px-6 md:py-11 md:px-10 bg-[#1a1a1a] sticky top-0 z-20 shadow-md transition-all duration-500'
+        className='flex justify-between items-center py-3 px-4 sm:py-5 sm:px-6 md:py-11 md:px-10 bg-[#1a1a1a] fixed w-full top-0 z-20 shadow-md transition-all duration-500'
       >
         {/* Left Section: Menu & Search */}
         <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
@@ -149,7 +149,7 @@ export const Navbar = () => {
       </nav>
 
       {/* Menu Bar */}
-      <div className='absolute z-20' ref={bar}>
+      <div className='absolute z-50' ref={bar}>
         {barShow && <MenuBar setBarShow={setBarShow} />}
       </div>
 
