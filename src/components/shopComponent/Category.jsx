@@ -24,7 +24,8 @@ export const Category = () => {
           onClick={() => dispatch(setCategory(list.category_name))}
           className="flex flex-col items-center gap-3 sm:gap-4 md:gap-6 cursor-pointer"
         >
-          <img
+          <div>
+            <img
             src={list.categogy_img}
             alt={list.category_name}
             className={`
@@ -33,11 +34,12 @@ export const Category = () => {
               transition duration-300 ease-in-out
               ${
                 selectedCategory === list.category_name
-                  ? 'border border-white p-1 sm:p-2 rounded-md'
+                  ? 'border-2 border-[#e11f2c] p-1 sm:p-2 rounded-md'
                   : ''
               }
             `}
           />
+          </div>
           <p className="text-white text-xs sm:text-sm md:text-base lg:text-xl font-semibold text-center">
             {list.category_name.toUpperCase()}
           </p>
