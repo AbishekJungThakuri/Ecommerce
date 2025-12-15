@@ -13,9 +13,9 @@ const Cart = () => {
   return (
     <>
       {cartItems.length > 0 ? (
-        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-12 md:py-14 bg-[#1a1a1a] text-white ">
+        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-12 md:py-14 bg-[#1a1a1a] text-white min-h-[80vh]">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6 pt-[30px] sm:pt-[50px] md:pt-[118px]">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#e11f2c]">
               Your Cart
             </h2>
@@ -34,21 +34,17 @@ const Cart = () => {
           </div>
 
           {/* Cart Items */}
-          {cartItems.map(item => (
-            <CartCard key={item.id} item={item} />
-          ))}
-
-          {/* Total Price */}
-          <div className="flex justify-end mt-8 sm:mt-10 border-t border-gray-700 pt-4 sm:pt-6">
-            <div className="text-right">
-              <span className="text-xl sm:text-2xl font-semibold text-[#e11f2c]">
-                Total: Rs {totalPrice}.00
-              </span>
-            </div>
+          <div className="flex flex-col gap-4">
+            {cartItems.map(item => (
+              <CartCard key={item.id} item={item} />
+            ))}
           </div>
 
-          {/* Order Now Button */}
-          <div className="flex justify-end mt-4 sm:mt-6">
+          {/* Total Price & Order Button */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-8 sm:mt-10 border-t border-gray-700 pt-4 sm:pt-6 gap-4 sm:gap-0">
+            <span className="text-xl sm:text-2xl font-semibold text-[#e11f2c]">
+              Total: Rs {totalPrice}.00
+            </span>
             <button 
               onClick={() => navigate('/order')}
               className="w-full sm:w-auto border border-[#e11f2c] py-3 px-6 bg-[#e11f2c] text-white font-medium transform hover:-translate-y-1 hover:bg-black hover:text-[#e11f2c] transition duration-300 cursor-pointer rounded-md"
@@ -59,8 +55,8 @@ const Cart = () => {
         </div>
       ) : (
         // Empty Cart State
-        <div className="flex flex-col items-center justify-center h-[50vh] sm:h-[57.3vh] px-4 bg-[#1a1a1a] text-white rounded-lg shadow-lg">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[#e11f2c]">
+        <div className="flex flex-col items-center justify-center h-[70vh] px-4 bg-[#1a1a1a] text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[#e11f2c] pt-[30px] sm:pt-[50px] md:pt-[118px]">
             Your cart is empty
           </h1>
           <button
@@ -75,4 +71,4 @@ const Cart = () => {
   );
 };
 
-export default Cart
+export default Cart;

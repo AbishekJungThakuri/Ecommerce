@@ -3,6 +3,7 @@ import { ItemCard } from '../components/shopComponent/ItemCard'
 import { dropIV } from '../assets/Data'
 import { Category } from '../components/shopComponent/Category'
 import { useSelector } from 'react-redux'
+import Notavailable from '../assets/not-available.gif';
 
 const Shop = () => {
   
@@ -66,8 +67,9 @@ const Shop = () => {
       }
       </>
       :
-      <div>
-        <p className='text-white font-semibold text-5xl'>Product is not available</p>
+      <div className='flex flex-col justify-center items-center mt-10 gap-5'>
+        <img className='w-100 h-66 object-cover border-6 border-[#e11f2c] rounded-xl' src={Notavailable} alt="Image not found" />
+        <p className='text-white font-medium text-lg sm:text-3xl'>Product is Not Available</p>
       </div>
       }
     </div>
