@@ -7,7 +7,7 @@ export const MenuBar = ({ setBarShow }) => {
   const navigate = useNavigate();
 
   return (
-    <div className='bg-[#1a1a1a] text-white w-full sm:w-[22rem] h-[94vh] sm:h-[90vh] p-6 sm:p-8 md:p-10 flex flex-col justify-between overflow-y-auto shadow-lg'>
+    <div className='bg-[#1a1a1a] text-white w-full sm:w-[22rem] h-[94vh] sm:h-[90vh] p-6 sm:p-8 md:p-10 flex flex-col justify-between overflow-y-auto shadow-lg  mt-[50px] sm:mt-[75px] md:mt-[121px]'>
       
       {/* Menu Items */}
       <ul className='text-base sm:text-lg flex flex-col gap-2 sm:gap-4 font-medium'>

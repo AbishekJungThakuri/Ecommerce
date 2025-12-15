@@ -82,7 +82,7 @@ export const Navbar = () => {
         className='flex justify-between items-center py-3 px-4 sm:py-5 sm:px-6 md:py-11 md:px-10 bg-[#1a1a1a] fixed w-full top-0 z-20 shadow-md transition-all duration-500'
       >
         {/* Left Section: Menu & Search */}
-        <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
+        <div  ref={bar} className='flex items-center gap-3 sm:gap-4 md:gap-5'>
           {barShow ? (
             <MdClose 
               onClick={() => setBarShow(false)} 
