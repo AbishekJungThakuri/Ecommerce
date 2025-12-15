@@ -43,8 +43,7 @@ const Shop = () => {
           selectedCategory === "All" ? 'DROP IV' : selectedCategory.toUpperCase()
         }
       </h1>
-      
-      {/* Updated grid layout for responsive columns */}
+
       { visibleItems.length > 0 ?
       <>
         <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 md:gap-6 justify-items-center'>
@@ -52,6 +51,7 @@ const Shop = () => {
           visibleItems.map(item => <ItemCard key={item.id} item={item}/>)
         }
       </div>
+      
       {/* load more button */}
       {
         visibleCount < filteredItems.length && (
