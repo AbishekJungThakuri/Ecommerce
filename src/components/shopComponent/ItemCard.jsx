@@ -12,7 +12,7 @@ export const ItemCard = ({item}) => {
       onTouchStart={() => setIsHovered(true)} // For mobile touch
       onTouchEnd={() => setIsHovered(false)} // For mobile touch
     >
-        <Link to={`/itemDetail/${item.id}`} className='block'>
+        <Link to={`/shop/itemDetail/${item.id}`} className='block'>
           <div className='relative'>
             <img 
               className={`w-full h-auto border rounded-2xl transform hover:-translate-y-2 transition duration-300 ease-in-out ${

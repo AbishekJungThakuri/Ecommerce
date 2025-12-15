@@ -18,7 +18,7 @@ export const SearchCard = ({filteredResults, searchRef, setSearchShow}) => {
           <div key={index} className='flex items-center justify-between gap-3 sm:gap-4 md:gap-5 hover:bg-gray-50 rounded-lg p-1 sm:p-2'>
             <div 
               onClick={() => {
-                navigate(`/itemDetail/${item.id}`);
+                navigate(`/shop/itemDetail/${item.id}`);
                 dispatch(clearSearch());
                 setSearchShow(false);
               }} 
