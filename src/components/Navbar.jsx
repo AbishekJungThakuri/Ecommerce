@@ -86,12 +86,12 @@ export const Navbar = () => {
           {barShow ? (
             <MdClose 
               onClick={() => setBarShow(false)} 
-              className='text-2xl sm:text-3xl text-[#e11f2c] cursor-pointer hover:scale-110 transition-transform duration-200' 
+              className='text-xl sm:text-3xl text-[#e11f2c] cursor-pointer hover:scale-110 transition-transform duration-200' 
             />
           ) : (
             <CiMenuBurger 
               onClick={() => setBarShow(true)} 
-              className='text-2xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200' 
+              className='text-xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200' 
             />
           )}
 
@@ -133,11 +133,11 @@ export const Navbar = () => {
 
         {/* Right Section: Account & Cart */}
         <div className='flex items-center gap-3 sm:gap-4 md:gap-5'>
-          <VscAccount className='text-2xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200' />
+          <VscAccount className='text-xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200' />
           <div className='relative flex items-center'>
             <GiShoppingBag
               onClick={() => navigate('/cart')}
-              className='text-2xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200'
+              className='text-xl sm:text-3xl text-white cursor-pointer hover:text-[#e11f2c] transition-colors duration-200'
             />
             {cartItems.length > 0 && (
               <span className='absolute -top-2 -right-2 bg-[#e11f2c] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold'>
