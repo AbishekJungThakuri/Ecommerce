@@ -96,7 +96,7 @@ const Login = () => {
 
           {/* Register */}
           <p className="text-center text-sm text-gray-300">
-            Don’t have an account?{" "}
+            Don't have an account?{" "}
             <span className="text-[#e11f2c] cursor-pointer font-semibold hover:underline">
               Register
             </span>

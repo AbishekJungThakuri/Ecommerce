@@ -13,7 +13,7 @@ const Cart = () => {
   return (
     <>
       {cartItems.length > 0 ? (
-        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-12 md:py-14 bg-[#1a1a1a] text-white min-h-[80vh]">
+        <div className="mx-auto px-4 sm:px-6 md:px-8 lg:px-[7rem] py-12 md:py-14 bg-[#1a1a1a] text-white min-h-[80vh]  pt-[60px] sm:pt-[80px] md:pt-[130px]">
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#e11f2c]">
@@ -41,7 +41,7 @@ const Cart = () => {
           </div>
 
           {/* Total Price & Order Button */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-8 sm:mt-10 border-t border-gray-700 pt-4 sm:pt-6 gap-4 sm:gap-0">
+          <div className="flex flex-col items-start sm:items-end mt-8 sm:mt-10 border-t border-gray-700 pt-4 sm:pt-6 gap-4">
             <span className="text-xl sm:text-2xl font-semibold text-[#e11f2c]">
               Total: Rs {totalPrice}.00
             </span>

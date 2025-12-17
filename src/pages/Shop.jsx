@@ -38,7 +38,7 @@ const Shop = () => {
       
       <Category/>
       
-      <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white text-center sm:text-left mb-6 sm:mb-8'>
+      <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white text-center md:text-left mb-6 sm:mb-8'>
         {
           selectedCategory === "All" ? 'DROP IV' : selectedCategory.toUpperCase()
         }

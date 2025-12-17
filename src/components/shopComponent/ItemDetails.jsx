@@ -145,6 +145,7 @@ const ItemDetails = () => {
                   id,
                   name,
                   price,
+                  size: active,
                   img: front_img,
                   qty: 1
                 }));

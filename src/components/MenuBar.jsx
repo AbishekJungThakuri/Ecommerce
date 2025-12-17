@@ -6,37 +6,34 @@ import { useNavigate } from 'react-router-dom';
 export const MenuBar = ({ setBarShow }) => {
   const navigate = useNavigate();
 
+  const menubarList = [
+    { name: "HOME", link: "/" },
+    { name: "SHOP ALL", link: "/shop" },
+    { name: "CATEGORY", link: null, icon: <FaArrowRightLong className="text-sm sm:text-base" /> },
+    { name: "ABOUT US", link: "/about" },
+    { name: "DIRECT LINKS", link: null, icon: <FaArrowRightLong className="text-sm sm:text-base" /> },
+  ];
+
   return (
     <div className='bg-[#1a1a1a] text-white w-full sm:w-[22rem] h-[94vh] sm:h-[90vh] p-6 sm:p-8 md:p-10 flex flex-col justify-between overflow-y-auto shadow-lg  mt-[50px] sm:mt-[75px] md:mt-[121px]'>
       
       {/* Menu Items */}
       <ul className='text-base sm:text-lg flex flex-col gap-2 sm:gap-4 font-medium'>
-        <li
-          onClick={() => { navigate('/'); setBarShow(false); }}
-          className='cursor-pointer hover:bg-[#e11f2c] hover:text-white p-3 sm:p-3 rounded transition-colors duration-200'
-        >
-          HOME
-        </li>
-        <li
-          onClick={() => { navigate('/shop'); setBarShow(false); }}
-          className='cursor-pointer hover:bg-[#e11f2c] hover:text-white p-3 sm:p-3 rounded transition-colors duration-200'
-        >
-          SHOP ALL
-        </li>
-        <li className='flex items-center justify-between hover:bg-[#e11f2c] hover:text-white p-3 sm:p-3 rounded transition-colors duration-200 cursor-pointer'>
-          <p>CATEGORY</p>
-          <FaArrowRightLong className="text-sm sm:text-base" />
-        </li>
-        <li
-          // onClick={() => { navigate('/about'); setBarShow(false); }}
-          className='cursor-pointer hover:bg-[#e11f2c] hover:text-white p-3 sm:p-3 rounded transition-colors duration-200'
-        >
-          ABOUT US
-        </li>
-        <li className='flex items-center justify-between hover:bg-[#e11f2c] hover:text-white p-3 sm:p-3 rounded transition-colors duration-200 cursor-pointer'>
-          <p>DIRECT LINKS</p>
-          <FaArrowRightLong className="text-sm sm:text-base" />
-        </li>
+        {menubarList.map((item, index) => (
+          <li
+            key={index}
+            onClick={() => {
+              if (item.link) {
+                navigate(item.link);
+                setBarShow(false);
+              }
+            }}
+            className={`flex items-center justify-between ${item.icon ? "" : "cursor-pointer"} hover:bg-[#e11f2c] hover:text-white p-3 sm:p-3 rounded transition-colors duration-200`}
+          >
+            <p>{item.name}</p>
+            {item.icon && item.icon}
+          </li>
+        ))}
       </ul>
 
       {/* Divider */}
@@ -61,5 +58,5 @@ export const MenuBar = ({ setBarShow }) => {
         </a>
       </div>
     </div>
-  )
+  );
 }
