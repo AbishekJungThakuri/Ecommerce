@@ -21,6 +21,7 @@ export const Navbar = () => {
   const cartItems = useSelector(state => state.cart.cart);
   const totalQty = cartItems.reduce((total, item) => total + item.qty, 0);
 
+  
   const dispatch = useDispatch();
   const { searchTerm, filteredResults } = useSelector(state => state.search);
 
