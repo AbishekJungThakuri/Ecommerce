@@ -9,13 +9,13 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <AppRoutes />
-       <Snowfall style={{
+       {/* <Snowfall style={{
         position: 'fixed',
         width: '100vw',
         height: '100vh',
         zIndex: 100,
         pointerEvents: 'none'
-        }} />
+        }} /> */}
     </BrowserRouter>
   );
 }
